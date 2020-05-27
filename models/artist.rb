@@ -31,6 +31,11 @@ class Artist
         return artist_objects
     end
 
+    def self.delete_all()
+        sql = "DELETE FROM artists;"
+        SqlRunner.run(sql)
+    end
+
     def albums()
         sql = "SELECT * FROM albums WHERE artist_id = $1"
         values = [@id]
