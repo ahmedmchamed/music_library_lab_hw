@@ -12,20 +12,16 @@ class Artist
 
     def save_artist()
         sql = "INSERT INTO artists
-        (
-            name
-        )
+        (name)
         VALUES
-        (
-            $1
-        )
+        ($1)
         RETURNING id;"
         values = [@name]
         @id = SqlRunner.run(sql, values)[0]['id'].to_i()
     end
 
     def delete_artist()
-        sql = "DELETE FROM artists WHERE id = $1"
+        sql = "DELETE FROM artists WHERE id = $1;"
         values = [@id]
         SqlRunner.run(sql, values)
     end
@@ -34,14 +30,14 @@ class Artist
         sql = "UPDATE artists SET
         (name)
         =
-        ROW($1)  
+        ROW($1)
         WHERE id = $2;"
         values = [new_name, @id]
         SqlRunner.run(sql, values)
     end
 
     def albums_by_artist()
-        sql = "SELECT * FROM albums WHERE artist_id = $1"
+        sql = "SELECT * FROM albums WHERE artist_id = $1;"
         values = [@id]
         albums = SqlRunner.run(sql, values)
         return albums.map { |album| Album.new(album) }
@@ -60,7 +56,7 @@ class Artist
     end
 
     def self.find_artist_by_id(id)
-        sql = "SELECT * FROM artists WHERE id = $1"
+        sql = "SELECT * FROM artists WHERE id = $1;"
         values = [id]
         artist_hash_result = SqlRunner.run(sql, values)
         return artist_hash_result.map { |artist| Artist.new(artist) }

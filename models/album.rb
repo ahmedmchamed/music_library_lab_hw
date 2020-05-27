@@ -13,15 +13,10 @@ class Album
     end
 
     def save_album()
-        sql = " INSERT INTO albums (
-            title,
-            genre,
-            artist_id
-        )
+        sql = " INSERT INTO albums 
+        (title, genre, artist_id)
         VALUES
-        (
-            $1, $2, $3
-        )
+        ($1, $2, $3)
         RETURNING id;"
         values = [@title, @genre, @artist_id]
         @id = SqlRunner.run(sql, values)[0]['id'].to_i()
@@ -45,7 +40,7 @@ class Album
     end
 
     def artist_of_album()
-        sql = "SELECT * FROM artists WHERE id = $1"
+        sql = "SELECT * FROM artists WHERE id = $1;"
         values = [@artist_id]
         artist_result = SqlRunner.run(sql, values)
         return artist_result.map { |artist| Artist.new(artist) }
@@ -64,7 +59,7 @@ class Album
     end
 
     def self.find_album_by_id(id)
-        sql = "SELECT * FROM albums WHERE id = $1"
+        sql = "SELECT * FROM albums WHERE id = $1;"
         values = [id]
         found_album_hash = SqlRunner.run(sql, values)
         return found_album_hash.map { |album| Album.new(album) }
