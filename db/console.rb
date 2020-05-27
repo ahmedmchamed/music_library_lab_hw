@@ -2,8 +2,8 @@ require('pry-byebug')
 require_relative('../models/album')
 require_relative('../models/artist')
 
-Album.delete_all()
-Artist.delete_all()
+Album.delete_all_albums()
+Artist.delete_all_artists()
 
 artist1 = Artist.new({
     'name' => 'Elvis'
@@ -12,8 +12,8 @@ artist2 = Artist.new({
     'name' => 'Johnny Cash'
     })
 
-artist1.save()
-artist2.save()
+artist1.save_artist()
+artist2.save_artist()
 
 album1 = Album.new({
     'title' => 'Love me tender', 
@@ -26,8 +26,8 @@ album2 = Album.new({
     'artist_id' => artist2.id()
     })
 
-album1.save()
-album2.save()
+album1.save_album()
+album2.save_album()
 
 binding.pry
 

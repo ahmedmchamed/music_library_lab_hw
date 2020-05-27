@@ -12,7 +12,7 @@ class Album
         @artist_id = options['artist_id'].to_i()
     end
 
-    def save()
+    def save_album()
         sql = " INSERT INTO albums (
             title,
             genre,
@@ -27,29 +27,40 @@ class Album
         @id = SqlRunner.run(sql, values)[0]['id'].to_i()
     end
 
-    def delete()
+    def delete_album()
         sql = "DELETE FROM albums WHERE id = $1;"
         values = [@id]
         SqlRunner.run(sql, values)
     end
 
-    def self.all()
+    def edit_album(new_title, new_genre)
+        sql = "UPDATE albums
+        SET
+        (title, genre)
+        =
+        ($1, $2)
+        WHERE id = $3;"
+        values = [new_title, new_genre, @id]
+        SqlRunner.run(sql, values)
+    end
+
+    def artist_of_album()
+        sql = "SELECT * FROM artists WHERE id = $1"
+        values = [@artist_id]
+        artist_result = SqlRunner.run(sql, values)
+        return artist_result.map { |artist| Artist.new(artist) }
+    end
+
+    def self.display_all_albums()
         sql = "SELECT * FROM albums;"
         album_hashes = SqlRunner.run(sql)
         album_objects = album_hashes.map { |album| Album.new(album) }
         return album_objects
     end
 
-    def self.delete_all()
+    def self.delete_all_albums()
         sql = "DELETE FROM albums;"
         SqlRunner.run(sql)
-    end
-
-    def artist()
-        sql = "SELECT * FROM artists WHERE id = $1"
-        values = [@artist_id]
-        artist_result = SqlRunner.run(sql, values)
-        return artist_result.map { |artist| Artist.new(artist) }
     end
 
 end
