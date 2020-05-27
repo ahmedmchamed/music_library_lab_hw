@@ -1,3 +1,5 @@
+require_relative('../db/sql_runner')
+
 class Album
 
     attr_accessor :name, :title, :genre
