@@ -12,6 +12,7 @@ artist2 = Artist.new({
     'name' => 'Johnny Cash'
     })
 
+#INSERTing the artists
 artist1.save_artist()
 artist2.save_artist()
 
@@ -26,6 +27,7 @@ album2 = Album.new({
     'artist_id' => artist2.id()
     })
 
+#INSERTing the albums
 album1.save_album()
 album2.save_album()
 
