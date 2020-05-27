@@ -28,9 +28,9 @@ class Artist
 
     def edit_artist(new_name)
         sql = "UPDATE artists SET
-        (name)
+        name
         =
-        ROW($1)
+        $1
         WHERE id = $2;"
         values = [new_name, @id]
         SqlRunner.run(sql, values)
