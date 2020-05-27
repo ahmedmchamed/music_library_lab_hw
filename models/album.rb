@@ -24,7 +24,7 @@ class Album
         )
         RETURNING id"
         values = [@title, @genre]
-        @id = SqlRunner.run(sql, values)[0]['id'].to_i
+        @id = SqlRunner.run(sql, values)[0]['id'].to_i()
     end
         
     
