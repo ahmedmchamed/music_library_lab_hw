@@ -31,11 +31,11 @@ class Album
     def edit_album(new_title = @title, new_genre = @genre)
         sql = "UPDATE albums
         SET
-        (title, genre)
+        (title, genre, artist_id)
         =
-        ($1, $2)
-        WHERE id = $3;"
-        values = [new_title, new_genre, @id]
+        ($1, $2, $3)
+        WHERE id = $4;"
+        values = [new_title, new_genre, @artist_id, @id]
         SqlRunner.run(sql, values)
     end
 
