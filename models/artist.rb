@@ -26,7 +26,7 @@ class Artist
         SqlRunner.run(sql, values)
     end
 
-    def edit_artist(new_name)
+    def edit_artist(new_name = @name)
         sql = "UPDATE artists SET
         name
         =

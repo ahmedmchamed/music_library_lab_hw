@@ -28,7 +28,7 @@ class Album
         SqlRunner.run(sql, values)
     end
 
-    def edit_album(new_title, new_genre)
+    def edit_album(new_title = @title, new_genre = @genre)
         sql = "UPDATE albums
         SET
         (title, genre)
